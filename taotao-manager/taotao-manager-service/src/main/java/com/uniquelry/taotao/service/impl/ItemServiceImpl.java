@@ -1,5 +1,6 @@
 package com.uniquelry.taotao.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.uniquelry.taotao.mapper.TbItemDescMapper;
 import com.uniquelry.taotao.mapper.TbItemMapper;
 import com.uniquelry.taotao.pojo.EasyUIDataGridResult;
+import com.uniquelry.taotao.pojo.TaotaoResult;
 import com.uniquelry.taotao.pojo.TbItem;
+import com.uniquelry.taotao.pojo.TbItemDesc;
 import com.uniquelry.taotao.pojo.TbItemExample;
 import com.uniquelry.taotao.service.ItemService;
+import com.uniquelry.taotao.utils.IDUtils;
 
 /**
  * @author uniquelry
@@ -23,6 +28,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private TbItemMapper tbItemMapperr;
+	
+	@Autowired
+	private TbItemDescMapper tbItemDescMapper;
 	
 	@Override
 	public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
@@ -46,6 +54,31 @@ public class ItemServiceImpl implements ItemService {
 		result.setRows(info.getList());
 		//返回
 		return result;
+	}
+
+	@Override
+	public TaotaoResult addItem(TbItem item, String desc) {
+		//生成商品id
+		long itemId = IDUtils.genItemId();
+		//补全item属性
+		item.setId(itemId);
+		//商品状态，1-正常，2-下架，3-删除
+		item.setStatus((byte) 1);
+		item.setCreated(new Date());
+		item.setUpdated(new Date());
+		//向商品表中插入数据
+		tbItemMapperr.insert(item);
+		//创建商品描述表对应的pojo
+		TbItemDesc tbItemDesc = new TbItemDesc();
+		//补全pojo的属性
+		tbItemDesc.setItemId(itemId);
+		tbItemDesc.setItemDesc(desc);
+		tbItemDesc.setCreated(new Date());
+		tbItemDesc.setUpdated(new Date());
+		//向商品描述表中插入数据
+		tbItemDescMapper.insert(tbItemDesc);
+		//返回结果
+		return TaotaoResult.ok();
 	}
 
 }

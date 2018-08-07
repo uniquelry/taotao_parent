@@ -1,5 +1,6 @@
 package com.uniquelry.taotao.service;
 
+import java.util.List;
 
 /**
  * @author uniquelry
@@ -7,7 +8,7 @@ package com.uniquelry.taotao.service;
  * @Description 测试接口 查询当前时间
  */
 public interface TestService {
-		
+	
 	//查询当前时间
 	public String queryNow();
 }

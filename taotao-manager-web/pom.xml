@@ -14,6 +14,15 @@
 	    <artifactId>taotao-manager-interface</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<!-- mybatis分页相关 -->
+	<dependency>
+		<groupId>com.github.miemiedev</groupId>
+		<artifactId>mybatis-paginator</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.github.pagehelper</groupId>
+		<artifactId>pagehelper</artifactId>
+	</dependency>
   	<!-- Spring -->
 	<dependency>
 		<groupId>org.springframework</groupId>
@@ -86,6 +95,26 @@
 	<dependency>
 		<groupId>com.github.sgroschupf</groupId>
 		<artifactId>zkclient</artifactId>
+	</dependency>
+	<!-- 添加FastDFS客户端的引用 -->
+	<dependency>
+		<groupId>fastdfs_client</groupId>
+		<artifactId>fastdfs_client</artifactId>
+		<version>1.25</version>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-io</artifactId>
+	</dependency>
+	<!-- 文件上传组件 -->
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
 	</dependency>
   </dependencies>
   

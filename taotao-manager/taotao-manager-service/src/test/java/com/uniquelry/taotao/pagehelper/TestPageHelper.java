@@ -1,9 +1,4 @@
 package com.uniquelry.taotao.pagehelper;
-/**
- * @author uniquelry
- * @Date 2018年8月5日 下午4:28:57
- * @Description 
- */
 
 import java.util.List;
 
@@ -17,7 +12,13 @@ import com.uniquelry.taotao.mapper.TbItemMapper;
 import com.uniquelry.taotao.pojo.TbItem;
 import com.uniquelry.taotao.pojo.TbItemExample;
 
+/**
+ * @author uniquelry
+ * @Date 2018年8月5日 下午4:28:57
+ * @Description 
+ */
 public class TestPageHelper {
+	
 	@Test
 	public void testHelper() {
 		//1.初始化spring容器
@@ -37,7 +38,7 @@ public class TestPageHelper {
 		System.out.println("第二个查询的list集合长度："+list2.size());
 		System.out.println("查询的总记录数："+info.getTotal());
 		for (TbItem tbItem : list) {
-			System.out.println(tbItem.getId()+":"+tbItem.getTitle());
+			System.out.println(tbItem.getId()+":"+tbItem.getTitle()+":"+tbItem.getPrice());
 		}
 		
 	}
