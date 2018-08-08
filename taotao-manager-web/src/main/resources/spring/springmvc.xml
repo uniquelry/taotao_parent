@@ -41,5 +41,6 @@
 	<dubbo:reference interface="com.uniquelry.taotao.service.TestService" id="testService" />
 	<dubbo:reference interface="com.uniquelry.taotao.service.ItemService" id="itemService" />
 	<dubbo:reference interface="com.uniquelry.taotao.service.ItemCatService" id="itemCatService" />
-	
+	<dubbo:reference interface="com.uniquelry.taotao.service.ContentCategoryService" id="contentCategoryService" timeout="300000" />
+	<dubbo:reference interface="com.uniquelry.taotao.service.ContentService" id="contentService" timeout="300000" />
 </beans>

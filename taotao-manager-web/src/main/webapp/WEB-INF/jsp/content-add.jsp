@@ -53,8 +53,10 @@
 <script type="text/javascript">
 	var contentAddEditor ;
 	$(function(){
+		//初始化富文本编辑器放到content这个textarea中
 		contentAddEditor = TT.createEditor("#contentAddForm [name=content]");
 		TT.initOnePicUpload();
+		//$("#contentCategoryTree").tree("getSelected").id	是被选中的树的节点id，将值设置到隐藏域中
 		$("#contentAddForm [name=categoryId]").val($("#contentCategoryTree").tree("getSelected").id);
 	});
 	
@@ -69,7 +71,9 @@
 				$.post("/content/save",$("#contentAddForm").serialize(), function(data){
 					if(data.status == 200){
 						$.messager.alert('提示','新增内容成功!');
+						//重新加载表格中的数据
     					$("#contentList").datagrid("reload");
+						//关闭窗口
     					TT.closeCurrentWindow();
 					}
 				});
