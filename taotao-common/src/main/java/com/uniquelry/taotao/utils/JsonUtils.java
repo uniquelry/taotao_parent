@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author uniquelry
  * @Date 2018年8月7日 下午12:35:33
- * @Description 自定义响应结构
+ * @Description 自定义json转化工具类
  */
 public class JsonUtils {
 

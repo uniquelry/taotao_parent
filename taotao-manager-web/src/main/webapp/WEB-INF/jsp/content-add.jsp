@@ -70,6 +70,7 @@
 				
 				$.post("/content/save",$("#contentAddForm").serialize(), function(data){
 					if(data.status == 200){
+						//alert("200");
 						$.messager.alert('提示','新增内容成功!');
 						//重新加载表格中的数据
     					$("#contentList").datagrid("reload");

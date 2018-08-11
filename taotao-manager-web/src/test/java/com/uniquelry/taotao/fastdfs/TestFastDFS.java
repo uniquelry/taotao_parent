@@ -16,7 +16,7 @@ import com.uniquelry.taotao.utils.FastDFSClient;
  */
 public class TestFastDFS {
 	
-	/*@Test
+	@Test
 	public void TestUploadFile() throws Exception {
 		//1.项工程中添加fastdfs_client的jar包
 		//2.创建一个配置文件，配置tracker的服务器地址
@@ -35,12 +35,12 @@ public class TestFastDFS {
 		for (String string : strings) {
 			System.out.println(string);
 		}
-	}*/
+	}
 	
-	/*@Test
+	@Test
 	public void TestFastDFSClient() throws Exception {
 		FastDFSClient fastDFSClient=new FastDFSClient("E:\\workspace\\taotao-parent\\taotao-manager-web\\src\\main\\resources\\resource\\fastdfs.conf");
-		String string = fastDFSClient.uploadFile("F:\\WebPic\\headerpig.jpg");
+		String string = fastDFSClient.uploadFile("F:\\WebPic\\cat_121.21212121212px_1165134_easyicon.net.png");
 		System.out.println(string);
-	}*/
+	}
 }

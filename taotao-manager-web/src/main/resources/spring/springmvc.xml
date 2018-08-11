@@ -8,7 +8,6 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-	
 	<!-- 加载属性文件 -->
 	<context:property-placeholder location="classpath:resource/resource.properties" />
 	
@@ -37,7 +36,7 @@
 	
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="taotao-manager-web"/>
-	<dubbo:registry protocol="zookeeper" address="192.168.241.128:2181"/>	
+	<dubbo:registry protocol="zookeeper" address="192.168.25.128:2181"/>	
 	<dubbo:reference interface="com.uniquelry.taotao.service.TestService" id="testService" />
 	<dubbo:reference interface="com.uniquelry.taotao.service.ItemService" id="itemService" />
 	<dubbo:reference interface="com.uniquelry.taotao.service.ItemCatService" id="itemCatService" />
