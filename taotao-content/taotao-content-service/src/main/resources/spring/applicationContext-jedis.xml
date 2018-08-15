@@ -11,14 +11,14 @@
 	<context:annotation-config></context:annotation-config>
 	
 	<!-- 配置单机版jedisPool -->
-	<!-- <bean class="redis.clients.jedis.JedisPool">
+	<bean class="redis.clients.jedis.JedisPool">
 		<constructor-arg name="host" value="192.168.25.128"></constructor-arg>
 		<constructor-arg name="port" value="6379"></constructor-arg>
 	</bean>
-	<bean class="com.uniquelry.taotao.jedis.JedisClientPool"></bean> -->
+	<bean class="com.uniquelry.taotao.jedis.JedisClientPool"></bean>
 	
 	<!-- 配置集群版 -->
-	<bean class="redis.clients.jedis.JedisCluster">
+	<!-- <bean class="redis.clients.jedis.JedisCluster">
 		<constructor-arg name="nodes">
 			<set>
 				<bean class="redis.clients.jedis.HostAndPort">
@@ -48,6 +48,6 @@
 			</set>
 		</constructor-arg>
 	</bean>
-	<bean class="com.uniquelry.taotao.jedis.JedisClientCluster"></bean>
+	<bean class="com.uniquelry.taotao.jedis.JedisClientCluster"></bean> -->
 	
 </beans>

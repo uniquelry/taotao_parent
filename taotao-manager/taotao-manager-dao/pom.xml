@@ -44,9 +44,9 @@
   </dependencies>
   
   <build>
-	<!-- 如果不配置mybatis的配置文件会漏掉 -->
-	<!-- 注意：配置了此方式，原来的默认的资源拷贝行为将无效 -->
 	<resources>
+		<!-- 如果不配置此方式mybatis的mapper.xml文件会漏掉 -->
+		<!-- 注意：配置了此方式，原来的默认的资源拷贝行为将无效 -->
 		<resource>
 			<directory>src/main/java</directory>
 			<includes>
