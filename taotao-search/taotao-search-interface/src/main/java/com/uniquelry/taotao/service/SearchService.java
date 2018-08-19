@@ -1,5 +1,6 @@
 package com.uniquelry.taotao.service;
 
+import com.uniquelry.taotao.pojo.SearchItem;
 import com.uniquelry.taotao.pojo.SearchResult;
 import com.uniquelry.taotao.pojo.TaotaoResult;
 
@@ -10,7 +11,11 @@ import com.uniquelry.taotao.pojo.TaotaoResult;
  * @Description 
  */
 public interface SearchService {
-	//导入所有的商品数据到索引库中
+	/**
+	 * 导入所有的商品数据到索引库中
+	 * @return
+	 * @throws Exception
+	 */
 	public TaotaoResult importAllSearchItems() throws Exception;
 	/**
 	 * 根据搜索条件查询结果
@@ -21,5 +26,11 @@ public interface SearchService {
 	 * @throws Exception
 	 */
 	public SearchResult search(String queryString,Integer page,Integer rows) throws Exception;
+	/**
+	 * 更新item到索引库
+	 * @param itemId
+	 * @return
+	 */
+	public TaotaoResult updateSearchItem(Long itemId) throws Exception;
 	
 }

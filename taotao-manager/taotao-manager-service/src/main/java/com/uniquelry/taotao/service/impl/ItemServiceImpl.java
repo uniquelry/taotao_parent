@@ -3,7 +3,15 @@ package com.uniquelry.taotao.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -31,6 +39,12 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Autowired
 	private TbItemDescMapper tbItemDescMapper;
+	
+	@Resource(name="topicDestination")
+	private JmsTemplate jmsTemplate;
+	
+	@Autowired
+	private Destination destination;
 	
 	@Override
 	public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
@@ -77,8 +91,29 @@ public class ItemServiceImpl implements ItemService {
 		tbItemDesc.setUpdated(new Date());
 		//向商品描述表中插入数据
 		tbItemDescMapper.insert(tbItemDesc);
+		
+		//添加发送消息业务逻辑
+		jmsTemplate.send(destination,new MessageCreator() {
+			
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				//发送的消息内容
+				return session.createTextMessage(itemId+"");
+			}
+		});
+		
 		//返回结果
 		return TaotaoResult.ok();
+	}
+
+	@Override
+	public TbItem getItemById(Long itemId) {
+		return tbItemMapperr.selectByPrimaryKey(itemId);
+	}
+
+	@Override
+	public TbItemDesc getItemDescById(Long itemId) {
+		return tbItemDescMapper.selectByPrimaryKey(itemId);
 	}
 
 }

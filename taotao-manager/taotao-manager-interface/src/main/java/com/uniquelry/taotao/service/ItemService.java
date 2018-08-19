@@ -3,6 +3,7 @@ package com.uniquelry.taotao.service;
 import com.uniquelry.taotao.pojo.EasyUIDataGridResult;
 import com.uniquelry.taotao.pojo.TaotaoResult;
 import com.uniquelry.taotao.pojo.TbItem;
+import com.uniquelry.taotao.pojo.TbItemDesc;
 
 /**
  * @author uniquelry
@@ -24,4 +25,16 @@ public interface ItemService {
 	 * @return
 	 */
 	TaotaoResult addItem(TbItem item,String desc);
+	/**
+	 * 根据商品的id查询商品数据
+	 * @param itemId
+	 * @return
+	 */
+	public TbItem getItemById(Long itemId);
+	/**
+	 * 根据商品的id查询商品详情
+	 * @param itemId
+	 * @return
+	 */
+	public TbItemDesc getItemDescById(Long itemId);
 }

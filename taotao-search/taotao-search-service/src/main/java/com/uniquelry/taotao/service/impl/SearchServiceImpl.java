@@ -1,10 +1,13 @@
 package com.uniquelry.taotao.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,4 +96,26 @@ public class SearchServiceImpl implements SearchService {
 		return searchResult;
 	}
 	
+	@Override
+	public TaotaoResult updateSearchItem(Long itemId) throws Exception {
+		//查询到记录
+		SearchItem item = mapper.getSearchItemById(itemId);
+		//把记录更新到索引库
+		//创建SolrDocument对象
+		SolrInputDocument document = new SolrInputDocument();
+		//将文档对象中添加域
+		document.addField("id", item.getId().toString());	//这里是字符需要转换
+		document.addField("item_title", item.getTitle());
+		document.addField("item_sell_point", item.getSell_point());
+		document.addField("item_price", item.getPrice());
+		document.addField("item_image", item.getImage());
+		document.addField("item_category_name", item.getCategory_name());
+		document.addField("item_desc", item.getItem_desc());
+		//向索引库中添加文档
+		solrServer.add(document);
+		//提交
+		solrServer.commit();
+		return TaotaoResult.ok();
+	}
+
 }

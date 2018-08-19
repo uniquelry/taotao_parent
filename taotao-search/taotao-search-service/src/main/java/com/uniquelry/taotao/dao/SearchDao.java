@@ -75,4 +75,5 @@ public class SearchDao {
 		searchResult.setItemList(itemList);
 		return searchResult;
 	}
+	
 }

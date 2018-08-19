@@ -279,5 +279,6 @@
 		<module>taotao-content</module>
 		<module>taotao-search</module>
 		<module>taotao-search-web</module>
+		<module>taotao-item-web</module>
 	</modules>
 </project>
