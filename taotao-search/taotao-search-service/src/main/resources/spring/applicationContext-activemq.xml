@@ -15,12 +15,17 @@
 	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
 		<property name="targetConnectionFactory" ref="targetConnection"></property>
 	</bean>
-	<!-- 接收和发送消息时使用的类 模板对象 -->
-	<bean class="org.springframework.jms.core.JmsTemplate">
-		<property name="connectionFactory" ref="connectionFactory"></property>
-	</bean>
 	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg name="name" value="item-change-topic"></constructor-arg>
 	</bean>
-		
+	
+	<!-- 监听器 -->
+	<bean id="itemChangeMessageListener" class="com.uniquelry.taotao.listener.ItemChangeMessageListener"></bean>
+	<!-- 监听内容，作用：启动线程做监听 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="destination" ref="topicDestination"></property>
+		<property name="messageListener" ref="itemChangeMessageListener"></property>
+	</bean>
+	
 </beans>

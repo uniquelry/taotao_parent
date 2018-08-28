@@ -9,13 +9,16 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.uniquelry.taotao.manager.jedis.JedisClient;
 import com.uniquelry.taotao.mapper.TbItemDescMapper;
 import com.uniquelry.taotao.mapper.TbItemMapper;
 import com.uniquelry.taotao.pojo.EasyUIDataGridResult;
@@ -25,6 +28,7 @@ import com.uniquelry.taotao.pojo.TbItemDesc;
 import com.uniquelry.taotao.pojo.TbItemExample;
 import com.uniquelry.taotao.service.ItemService;
 import com.uniquelry.taotao.utils.IDUtils;
+import com.uniquelry.taotao.utils.JsonUtils;
 
 /**
  * @author uniquelry
@@ -45,6 +49,15 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Autowired
 	private Destination destination;
+	
+	@Autowired
+	private JedisClient jedisClient;
+	
+	@Value("${ITEM_INFO_KEY}")
+	private String ITEM_INFO_KEY;
+	
+	@Value("${ITEM_INFO_KEY_EXPIRE}")
+	private Integer ITEM_INFO_KEY_EXPIRE;
 	
 	@Override
 	public EasyUIDataGridResult getItemList(Integer page, Integer rows) {
@@ -108,12 +121,64 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public TbItem getItemById(Long itemId) {
-		return tbItemMapperr.selectByPrimaryKey(itemId);
+		//1.从缓存中获取数据，如果有直接返回
+		try {
+			String jsonstr = jedisClient.get(ITEM_INFO_KEY+":"+itemId+":BASE");
+			if(StringUtils.isNoneBlank(jsonstr)) {
+				System.out.println("redis中该商品有base缓存...");
+				//重新设置商品的有效期
+				jedisClient.expire(ITEM_INFO_KEY+":"+itemId+":BASE", ITEM_INFO_KEY_EXPIRE);
+				return JsonUtils.jsonToPojo(jsonstr, TbItem.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//2.如果没有数据，从数据库中获取
+		System.out.println("redis中该商品没有base缓存...");
+		TbItem tbItem = tbItemMapperr.selectByPrimaryKey(itemId);
+		
+		try {
+			//3.添加缓存到redis数据库中
+			jedisClient.set(ITEM_INFO_KEY+":"+itemId+":BASE", JsonUtils.objectToJson(tbItem));
+			//4.设置缓存的有效期
+			jedisClient.expire(ITEM_INFO_KEY+":"+itemId+":BASE", ITEM_INFO_KEY_EXPIRE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return tbItem;
 	}
 
 	@Override
 	public TbItemDesc getItemDescById(Long itemId) {
-		return tbItemDescMapper.selectByPrimaryKey(itemId);
+		//1.从缓存中获取数据，如果有直接返回
+		try {
+			String jsonstr = jedisClient.get(ITEM_INFO_KEY+":"+itemId+":DESC");
+			if(StringUtils.isNoneBlank(jsonstr)) {
+				System.out.println("redis中该商品有desc缓存...");
+				//重新设置商品的有效期
+				jedisClient.expire(ITEM_INFO_KEY+":"+itemId+":DESC", ITEM_INFO_KEY_EXPIRE);
+				return JsonUtils.jsonToPojo(jsonstr, TbItemDesc.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//2.如果没有数据，从数据库中获取
+		System.out.println("redis中该商品没有desc缓存...");
+		TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(itemId);
+		
+		try {
+			//3.添加缓存到redis数据库中
+			jedisClient.set(ITEM_INFO_KEY+":"+itemId+":DESC", JsonUtils.objectToJson(tbItemDesc));
+			//4.设置缓存的有效期
+			jedisClient.expire(ITEM_INFO_KEY+":"+itemId+":DESC", ITEM_INFO_KEY_EXPIRE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return tbItemDesc;
 	}
 
 }

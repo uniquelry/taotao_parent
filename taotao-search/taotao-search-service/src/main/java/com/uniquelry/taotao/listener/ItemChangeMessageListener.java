@@ -38,9 +38,7 @@ public class ItemChangeMessageListener implements MessageListener{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		//通过商品的id查询数据库，
-		
+		}  
 	}
 	
 }

@@ -19,6 +19,14 @@
 		<property name="suffix" value=".jsp" />
 	</bean>	
 	
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<!-- 配置模板文件所在的目录 -->
+		<property name="templateLoaderPath" value="/WEB-INF/ftl/" />
+		<!-- 设置默认的编码 -->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="taotao-item-web"/>
 	<dubbo:registry protocol="zookeeper" address="192.168.25.128:2181"/>
