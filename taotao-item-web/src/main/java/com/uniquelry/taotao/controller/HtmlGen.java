@@ -1,4 +1,4 @@
-package com.uniquelry.taotao.contorller;
+package com.uniquelry.taotao.controller;
 
 import java.io.File;
 import java.io.FileWriter;

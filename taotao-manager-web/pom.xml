@@ -20,7 +20,7 @@
 	    <artifactId>taotao-content-interface</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
   	</dependency>
-  	<!-- taotao-manager-interface接口 -->
+  	<!-- taotao-search-interface接口 -->
   	<dependency>
   		<groupId>com.uniquelry.taotao</groupId>
 	    <artifactId>taotao-search-interface</artifactId>
@@ -132,7 +132,7 @@
 			<groupId>org.apache.tomcat.maven</groupId>
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<configuration>
-				<port>8079</port>
+				<port>8082</port>
 				<path>/</path>
 			</configuration>
 		</plugin>

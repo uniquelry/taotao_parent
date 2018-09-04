@@ -1,12 +1,13 @@
 var TT = TAOTAO = {
 	checkLogin : function(){
-		var _ticket = $.cookie("TT_TOKEN");
+		var _ticket = $.cookie("TT_TOKEN");//从cookie中获取数据token
 		if(!_ticket){
 			return ;
 		}
 		$.ajax({
-			url : "http://localhost:8084/user/token/" + _ticket,
-			dataType : "jsonp",
+			//http://localhost:8089/user/token/123?callback=fun
+			url : "http://localhost:8089/user/token/" + _ticket,//首先定义一个函数fun()，在发送请求时带上callback=fun
+			dataType : "jsonp",//jsonp自动添加callback
 			type : "GET",
 			success : function(data){
 				if(data.status == 200){

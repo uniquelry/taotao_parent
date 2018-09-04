@@ -1,4 +1,4 @@
-package com.uniquelry.taotao.contorller;
+package com.uniquelry.taotao.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +18,11 @@ import com.uniquelry.taotao.service.ItemService;
  * @Description 
  */
 @Controller
-public class ItemContorller {
+public class ItemController {
 	@Autowired
 	private ItemService itemService;
 	
-	@RequestMapping("/item/{itemId}")
+	@RequestMapping(value="/item/{itemId}")
 	public String getItem(@PathVariable Long itemId,Model  model) {
 		//调用service的方法
 			//商品的基本信息

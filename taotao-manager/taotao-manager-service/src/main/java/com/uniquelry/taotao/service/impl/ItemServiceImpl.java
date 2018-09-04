@@ -45,10 +45,10 @@ public class ItemServiceImpl implements ItemService {
 	private TbItemDescMapper tbItemDescMapper;
 	
 	@Resource(name="topicDestination")
-	private JmsTemplate jmsTemplate;
+	private Destination destination;
 	
 	@Autowired
-	private Destination destination;
+	private JmsTemplate jmsTemplate;
 	
 	@Autowired
 	private JedisClient jedisClient;
