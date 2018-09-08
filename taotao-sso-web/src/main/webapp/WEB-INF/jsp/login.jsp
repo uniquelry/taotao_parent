@@ -79,8 +79,9 @@
 					if (data.status == 200) {
 						alert("登录成功！");
 						if (redirectUrl == "") {
-							location.href = "http://localhost:8083";
+							location.href = "http://localhost:8083";//默认是跳转到首页
 						} else {
+							//重新跳转到localhost:8093/order/order-cart.html
 							location.href = redirectUrl;
 						}
 					} else {

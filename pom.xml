@@ -282,5 +282,9 @@
 		<module>taotao-item-web</module>
 		<module>taotao-sso</module>
 		<module>taotao-sso-web</module>
+		<module>taotao-cart</module>
+		<module>taotao-cart-web</module>
+		<module>taotao-order</module>
+		<module>taotao-order-web</module>
 	</modules>
 </project>
